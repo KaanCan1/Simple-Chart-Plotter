@@ -1,4 +1,6 @@
 venv/
+venv311/
 __pycache__/
+.mpl_cache/
 outputs/
 .DS_Store

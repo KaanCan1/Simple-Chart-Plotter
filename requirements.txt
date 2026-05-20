@@ -1,5 +1,8 @@
 # requirements
+streamlit>=1.28
+pillow>=10.0
 matplotlib>=3.8
 seaborn>=0.13
 pandas>=2.0
 numpy>=1.26
+scipy>=1.11
