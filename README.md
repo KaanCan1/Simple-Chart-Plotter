@@ -1,149 +1,147 @@
-# TGSS 2024 — Grafik Paneli
+# TGSS 2024 — Chart Panel
 
-Türkiye Genel Sosyal Saha Araştırması 2024 (n = 2.615) verisinden otomatik grafik üreten Python projesi. Streamlit arayüzü üzerinden grafikleri oluşturup görüntüleyebilirsiniz.
+A Python project that automatically generates charts from the Turkey General Social Survey 2024 (n = 2,615) dataset. You can create and view charts through a Streamlit interface.
 
-## Gereksinimler
+## Requirements
 
-| Gereksinim | Minimum sürüm |
-|------------|---------------|
-| Python | 3.10 veya üzeri (3.11 önerilir) |
-| pip | Güncel sürüm |
-| Git | Repoyu klonlamak için |
+| Requirement | Minimum version |
+|-------------|-----------------|
+| Python | 3.10 or higher (3.11 recommended) |
+| pip | Latest version |
+| Git | For cloning the repo |
 
-İnternet bağlantısı ilk kurulumda paket indirmek için gerekir.
+An internet connection is required on first setup to download packages.
 
-## Proje yapısı
+## Project Structure
 
 ```
 Simple-Chart-Plotter/
-├── app.py                  # Streamlit web arayüzü
-├── main.py                 # Grafik üretim mantığı
-├── SimpleChartPlotter.py   # Grafik sınıfı (matplotlib)
+├── app.py                  # Streamlit web interface
+├── main.py                 # Chart generation logic
+├── SimpleChartPlotter.py   # Chart class (matplotlib)
 ├── data/
-│   └── TGSS2024.csv        # Anket verisi (repo ile gelir)
-├── outputs/                # Oluşturulan PNG'ler (otomatik oluşur)
+│   └── TGSS2024.csv        # Survey data (included with repo)
+├── outputs/                # Generated PNGs (auto-created)
 ├── requirements.txt
 └── README.md
 ```
 
-## Kurulum (sıfırdan)
+## Setup (from scratch)
 
-### 1. Repoyu klonlayın
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/KaanCan1/Simple-Chart-Plotter.git
 cd Simple-Chart-Plotter
 ```
 
-### 2. Sanal ortam oluşturun
+### 2. Create a virtual environment
 
 macOS / Linux:
-
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 Windows (PowerShell):
-
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-Sanal ortam aktifken terminalde `(.venv)` öneki görünür.
+When the virtual environment is active, you will see the `(.venv)` prefix in your terminal.
 
-### 3. Bağımlılıkları yükleyin
+### 3. Install dependencies
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Yüklenen ana paketler: `streamlit`, `matplotlib`, `seaborn`, `pandas`, `numpy`, `scipy`, `pillow`.
+Main packages installed: `streamlit`, `matplotlib`, `seaborn`, `pandas`, `numpy`, `scipy`, `pillow`.
 
-### 4. Veri dosyasını kontrol edin
+### 4. Verify the data file
 
-`data/TGSS2024.csv` dosyasının mevcut olduğundan emin olun. Bu dosya olmadan grafik üretilemez.
+Make sure `data/TGSS2024.csv` exists. Charts cannot be generated without this file.
 
-## Çalıştırma
+## Running the App
 
-### Web arayüzü (önerilen)
+### Web interface (recommended)
 
-Proje klasöründeyken, sanal ortam **aktif** iken:
+From the project root folder, with the virtual environment **active**:
 
 ```bash
 streamlit run app.py
 ```
 
-Tarayıcıda otomatik açılır (genelde `http://localhost:8501`). Açılmazsa bu adresi elle girin.
+The browser opens automatically (usually at `http://localhost:8501`). If it doesn't open, enter that address manually.
 
-Arayüzde **⟳ Grafikleri Oluştur** butonuna basın. 6 grafik `outputs/` klasörüne kaydedilir ve sayfada gösterilir.
+Click the **⟳ Generate Charts** button in the interface. Six charts will be saved to the `outputs/` folder and displayed on the page.
 
-- İlk çalıştırmada matplotlib font önbelleği kurulabilir; bu normaldir ve bir kez olur.
-- Sonraki üretimler genelde birkaç saniye sürer.
+- On first run, matplotlib may build its font cache — this is normal and happens only once.
+- Subsequent runs typically take only a few seconds.
 
-### Sadece terminalden grafik üretmek
+### Terminal-only chart generation
 
-Streamlit olmadan doğrudan PNG oluşturmak için:
+To generate PNGs directly without Streamlit:
 
 ```bash
 python main.py
 ```
 
-Çıktılar: `outputs/line.png`, `bar.png`, `scatter.png`, `pie.png`, `histogram.png`, `dashboard.png`.
+Output files: `outputs/line.png`, `bar.png`, `scatter.png`, `pie.png`, `histogram.png`, `dashboard.png`.
 
-## Üretilen grafikler
+## Generated Charts
 
-| Dosya | Açıklama |
-|-------|----------|
-| `line.png` | Yaş grubuna göre mutluluk, memnuniyet, sağlık |
-| `bar.png` | Toplumsal tehdit algısı ortalamaları |
-| `scatter.png` | Sosyal güven × yaşam memnuniyeti (cinsiyet) |
-| `pie.png` | Medeni durum dağılımı |
-| `histogram.png` | Katılımcı yaş dağılımı |
-| `dashboard.png` | Üç panelli genel bakış |
+| File | Description |
+|------|-------------|
+| `line.png` | Happiness, satisfaction, and health by age group |
+| `bar.png` | Average societal threat perception scores |
+| `scatter.png` | Social trust × life satisfaction (by gender) |
+| `pie.png` | Marital status distribution |
+| `histogram.png` | Participant age distribution |
+| `dashboard.png` | Three-panel overview |
 
-## Sık karşılaşılan sorunlar
+## Common Issues
 
-### `ModuleNotFoundError` (streamlit, pandas, scipy vb.)
+### `ModuleNotFoundError` (streamlit, pandas, scipy, etc.)
 
-Sanal ortamı aktive etmeden komut çalıştırıyorsunuzdur. Her oturumda:
+You are running commands without activating the virtual environment. Run this at the start of every session:
 
 ```bash
 source .venv/bin/activate   # macOS / Linux
 pip install -r requirements.txt
 ```
 
-### Grafikler çok yavaş oluşuyor
+### Charts are generating very slowly
 
-- Komutları **sanal ortam içinde** çalıştırın; sistem `python3` ile karıştırmayın.
-- `streamlit run app.py` kullanın; her seferinde yeni process açan eski yöntemlerden kaçının.
-- İlk çalıştırmadan sonra `.mpl_cache/` oluşur; ikinci üretimler hızlanır.
+- Run commands **inside the virtual environment**; don't mix with the system `python3`.
+- Use `streamlit run app.py`; avoid older methods that spawn a new process each time.
+- After the first run, `.mpl_cache/` is created and subsequent runs will be faster.
 
 ### `FileNotFoundError: data/TGSS2024.csv`
 
-Komutu proje kök klasöründen çalıştırın:
+Run the command from the project root directory:
 
 ```bash
 cd Simple-Chart-Plotter
 streamlit run app.py
 ```
 
-### Port zaten kullanımda
+### Port already in use
 
-Farklı port ile başlatın:
+Start on a different port:
 
 ```bash
 streamlit run app.py --server.port 8502
 ```
 
-## Geliştirme notları
+## Development Notes
 
-- Grafik motoru: `matplotlib` (`Agg` backend, dosyaya kayıt).
-- Arayüz: `Streamlit`.
-- `outputs/` ve `.mpl_cache/` git’e dahil değildir; çalışma sırasında oluşur.
+- Chart engine: `matplotlib` (`Agg` backend, saves to file).
+- Interface: `Streamlit`.
+- `outputs/` and `.mpl_cache/` are not tracked by git; they are created at runtime.
 
-## Lisans
+## License
 
-Bu proje eğitim / demo amaçlıdır. TGSS verisinin kullanım koşulları veri sahibine aittir.
+This project is for educational / demo purposes. Usage terms for the TGSS data belong to the data owner.
